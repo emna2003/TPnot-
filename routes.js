@@ -33,8 +33,8 @@ router.post('/register', async (req, res) => {
 });
 
 
+const { generateAccessToken, generateRefreshToken } = require('./tokenUtilis');
 router.post('/login', async (req, res) => {
-
   const { email, password } = req.body;
   const foundUser = await User.findOne({ email });
   if (!foundUser) {
@@ -44,8 +44,11 @@ router.post('/login', async (req, res) => {
   if (!passwordMatch) {
     return res.status(401).json({ error: 'Mot de passe invalide' });
   }
-  const token = jwt.sign({ userId: foundUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  res.json({ token });
+  const accessToken = generateAccessToken(foundUser._id);
+  const refreshToken = generateRefreshToken(foundUser._id);
+  foundUser.refreshToken = refreshToken;
+  await foundUser.save();
+  res.json({ accessToken, refreshToken });
 });
 
 module.exports = router;
