@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./models');
 const router = express.Router();
 const axios = require('axios');
+const UserSearch = require('./models');
 
 
 
@@ -29,7 +30,7 @@ router.post('/register', async (req, res) => {
     res.status(201).json({ token });
 
   } catch (error) {
-    console.error('Erreur lors de la création d\'un utilisateur :', error);
+    console.error('Erreur', error);
     res.status(500).json({ message: "Une erreur s'est produite lors de la création d'un compte." });
   }
 });
@@ -73,19 +74,29 @@ router.post('/search', async (req, res) => {
     console.log(query);
     const properties = await DpeData.find(query).limit(10);
     console.log(address);
-   
-    //const { latitude, longitude } = await getCoordinatesByAddress(address);
-    
-    //console.log(latitude);
-    //console.log(longitude);
-
+  
     const coordinates=[];
      for (const property of properties) {
         const address = `${property["Code_postal_(BAN)"]} ${property["Adresse_(BAN)"]}`;
 
-        console.log("address" , address);
+        
         const { latitude, longitude } = await getCoordinatesByAddress(address);
-        coordinates.push({ address, latitude, longitude });}
+
+        coordinates.push({ address, latitude, longitude });
+
+        //const userEmail = req.user.email;
+
+        const newUserSearch = new UserSearch({
+          userEmail,
+          postalCode,
+          dpeValue,
+          gesValue,
+          latitude,
+          longitude,
+          date: new Date()
+        });
+        await newUserSearch.save();
+        }
 
     res.json({coordinates});
       

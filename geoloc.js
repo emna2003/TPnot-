@@ -5,14 +5,6 @@ const router = express.Router();
 const axios = require('axios');
 const mongoose = require('mongoose');
 
-/*mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('Connexion à MongoDB établie avec succès');
-}).catch((err) => {
-  console.error('Erreur lors de la connexion à MongoDB :', err);
-});*/
 
 const DpeData = require('./dpeModel');
 
