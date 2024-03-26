@@ -1,4 +1,7 @@
 # TPnot-
+Mon application sert à trouver la geolocalisation d'un bien à partir de plusieurs criters de recherche. 
+Pour pouvoir le faire, il faut commencer par créer un compte à travers la fonction register. Une fois crée, on peut se connecter à travers la fonction login. Une fois on s'est connecté, on peut effectuer la recherche d'un bien à travers le code posta, le dpe et le ges. On aura comme résultat la latitude et la longitude stockée au niveau de la base de données.
+Si on veut supprimer une recherche, on n'a qu'à utiliser la fonction delete pour le faire. Pour relancer notre recherche on pourra faire appel à la fonction relaunch(n'est pas encore fonctionnel).
 
 Tout d'abord j'ai commencé par creer mes 3 fichiers js nécessaires pour le fonctionnement de mon application.
 Le fichier index, routes et models.js.
@@ -18,6 +21,10 @@ La fonction register se sert du model crée au niveau du fichier models contenan
 -La fonction "search": Cette fonction me permet à la fois de trouver la latitude et la longitude d'un bien à partir de quelques critéres de recherches mais aussi elle me permet de les enregister au fur et à mesure dans ma BDD.
 Cette fonction contient 3 parties; la première partie sert à faire une recherche au niveau de la base de données à partir du DPE, GES et code postal pour trouver un /des biens correspondants stockés dans la variable "properties". AU niveau de la 2 éme partie partie, le but est de retrouver la latitude et la longitude de chaque bien à partir de son adresse. C'est pour ça que je crée adresse qui contient chaque code postal et BAN par exemple de chaque property,  que je fournis à ma fonction generatecoordinates qui utilise nominatim et qui me permet de trouver la géolocalisation.
 Finalement à travers la derniere partie, j'envoie toutes mes recherches à ma base de données avec l'adresse, la latitude, la longitude, le ges, le dpe pour les enregistrer.
+
+-la fonction "delete": permet de supprimer une recherche a partir d'un id situé dans l'historique de recherche. elle commence tout d'abord par verifier si la recherche est existante ensuite elle passe à la suppression. Cette fois l'id de la requete est génerée au niveau des parametres mais pas au niveau du body.
+
+-la fonction "relaunch" que je n'ai pas fini de la coder: permet de relancer la recherche a partie de son id elle consiste  à la recuperation des criteres de recherche pour la relancer.
 
 
 
