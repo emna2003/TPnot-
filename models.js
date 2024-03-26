@@ -10,16 +10,10 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('ebs-user', userSchema);
 
-module.exports = User;
-
 
 const userSearchSchema = new mongoose.Schema({
-
-  /*userEmail:{
-    type: String,
-    required:true
-  },*/
-
+  id:{type: mongoose.Types.ObjectId},
+  
   postalCode: {
     type: Number,
     required: true
@@ -32,14 +26,20 @@ const userSearchSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  result: [{
   latitude: {
     type: Number,
     
   },
   longitude: {
-    type: Number,
+    type: Number
     
   },
+  adresse:{
+    type: String
+  },
+}
+],
   date: {
     type: Date,
     default: Date.now
@@ -48,4 +48,6 @@ const userSearchSchema = new mongoose.Schema({
 
 const UserSearch = mongoose.model('ebs-Search', userSearchSchema);
 
-module.exports=UserSearch;
+module.exports={User,UserSearch};
+
+

@@ -1,3 +1,5 @@
+// intégré dans mon fichier models
+
 const mongoose = require('mongoose');
 
 const dpeSchema = new mongoose.Schema({
