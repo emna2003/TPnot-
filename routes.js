@@ -176,7 +176,7 @@ router.delete('/userSearch/:id', async (req, res) => {
   }
 });
 
-/*router.put('/search/:id/relaunch',authenticateToken, async (req, res) => {
+router.put('/search/:id/relaunch',authenticateToken, async (req, res) => {
   try {
 
     const userId = req.user.userId;
@@ -203,7 +203,7 @@ router.delete('/userSearch/:id', async (req, res) => {
     console.log(error);
     res.status(500).json({ error: 'Erreur  de relance' });
   }
-});*/
+});
 
 module.exports = router;
 
